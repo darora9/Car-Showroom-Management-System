@@ -1,0 +1,60 @@
+-- Retrieve total sales for a specific period
+SELECT 
+    o.OrderID,
+    c.FirstName,
+    c.LastName,
+    o.OrderDate,
+    SUM(od.TotalPrice) AS TotalSales
+FROM
+    Orders o
+JOIN
+    Customers c ON o.CustomerID = c.CustomerID
+JOIN
+    OrderDetails od ON o.OrderID = od.OrderID
+WHERE
+    o.OrderDate BETWEEN '2024-01-01' AND '2024-01-31'
+GROUP BY
+    o.OrderID, c.FirstName, c.LastName, o.OrderDate;
+
+-- Find the most popular products based on sales
+SELECT 
+    p.ProductID,
+    p.ProductName,
+    SUM(od.Quantity) AS TotalQuantitySold
+FROM
+    Products p
+JOIN
+    OrderDetails od ON p.ProductID = od.ProductID
+GROUP BY
+    p.ProductID, p.ProductName
+ORDER BY
+    TotalQuantitySold DESC
+LIMIT 5;
+
+-- Identify customers with the highest total spending
+SELECT 
+    c.CustomerID,
+    c.FirstName,
+    c.LastName,
+    SUM(od.TotalPrice) AS TotalSpending
+FROM
+    Customers c
+JOIN
+    Orders o ON c.CustomerID = o.CustomerID
+JOIN
+    OrderDetails od ON o.OrderID = od.OrderID
+GROUP BY
+    c.CustomerID, c.FirstName, c.LastName
+ORDER BY
+    TotalSpending DESC
+LIMIT 5;
+
+-- Track inventory levels and generate alerts for low stock
+SELECT 
+    p.ProductID,
+    p.ProductName,
+    p.StockQuantity
+FROM
+    Products p
+WHERE
+    p.StockQuantity < 10;
