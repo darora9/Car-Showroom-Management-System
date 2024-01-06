@@ -1,0 +1,29 @@
+-- Insert new customer
+INSERT INTO Customers (CustomerID, FirstName, LastName, Email) VALUES (1, 'John', 'Doe', 'john.doe@example.com');
+
+-- Insert new product
+INSERT INTO Products (ProductID, ProductName, Price, StockQuantity) VALUES (1, 'Laptop', 999.99, 50);
+
+-- Insert new order
+INSERT INTO Orders (OrderID, CustomerID, OrderDate, Status) VALUES (1, 1, '2024-01-06', 'Pending');
+
+-- Insert order details
+INSERT INTO OrderDetails (OrderDetailID, OrderID, ProductID, Quantity, TotalPrice) VALUES (1, 1, 1, 2, 1999.98);
+
+-- Update customer details
+UPDATE Customers SET FirstName = 'Jane' WHERE CustomerID = 1;
+
+-- Update product information
+UPDATE Products SET StockQuantity = StockQuantity - 5 WHERE ProductID = 1;
+
+-- Update order status
+UPDATE Orders SET Status = 'Shipped' WHERE OrderID = 1;
+
+-- Delete customer
+DELETE FROM Customers WHERE CustomerID = 1;
+
+-- Delete product
+DELETE FROM Products WHERE ProductID = 1;
+
+-- Cancel order
+DELETE FROM Orders WHERE OrderID = 1;
